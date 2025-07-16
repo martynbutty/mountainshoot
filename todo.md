@@ -1,13 +1,13 @@
 # Mountain Shoot - Development Todo
 
 ## Current Status
-- [ ] Project not started
-- [ ] Planning phase complete
+- [x] Project setup complete
+- [x] Planning phase complete
 
 ## Implementation Steps
 
 ### Foundation Phase
-- [ ] Step 1: Project Setup
+- [x] Step 1: Project Setup
 - [ ] Step 2: Basic Game State
 - [ ] Step 3: Player Turn Logic
 - [ ] Step 4: Win Condition Detection
