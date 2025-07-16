@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders without crashing 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#000000",
+      "flex": 1,
+      "justifyContent": "center",
+      "paddingHorizontal": 20,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "marginBottom": 40,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#00FF00",
+          "fontFamily": "monospace",
+          "fontSize": 48,
+          "fontWeight": "bold",
+          "marginBottom": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      MOUNTAIN SHOOT
+    </Text>
+    <Text
+      style={
+        {
+          "color": "#FFFFFF",
+          "fontFamily": "monospace",
+          "fontSize": 24,
+          "marginBottom": 20,
+          "textAlign": "center",
+        }
+      }
+    >
+      Artillery Game
+    </Text>
+    <Text
+      style={
+        {
+          "color": "#CCCCCC",
+          "fontFamily": "monospace",
+          "fontSize": 16,
+          "lineHeight": 24,
+          "textAlign": "center",
+        }
+      }
+    >
+      Two-player artillery game
+      
+
+      Take turns firing at your opponent
+      
+
+      First hit wins the round!
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#111111",
+        "borderColor": "#333333",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "flex": 1,
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#666666",
+          "fontFamily": "monospace",
+          "fontSize": 18,
+        }
+      }
+    >
+      Game Area - Coming Soon
+    </Text>
+  </View>
+</View>
+`;
