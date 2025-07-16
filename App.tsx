@@ -57,6 +57,14 @@ const GameContent: React.FC = () => {
           Player 1: {gameState.sessionScores.player1Wins} wins | 
           Player 2: {gameState.sessionScores.player2Wins} wins
         </Text>
+        <Text style={styles.roundText}>
+          Round {gameState.roundNumber}
+        </Text>
+        {gameState.roundWinner && (
+          <Text style={styles.roundWinnerText}>
+            Player {gameState.roundWinner} wins the round!
+          </Text>
+        )}
       </View>
 
       <View style={styles.controlsContainer}>
@@ -95,6 +103,39 @@ const GameContent: React.FC = () => {
           onPress={actions.resetGame}
         >
           <Text style={styles.buttonText}>Reset</Text>
+        </TouchableOpacity>
+      </View>
+      
+      <View style={styles.controlsContainer}>
+        <TouchableOpacity 
+          style={[styles.button, gameState.gameStatus === 'playing' ? styles.buttonActive : styles.buttonDisabled]}
+          onPress={() => actions.recordHit(1)}
+          disabled={gameState.gameStatus !== 'playing'}
+        >
+          <Text style={styles.buttonText}>P1 Hit</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.button, gameState.gameStatus === 'playing' ? styles.buttonActive : styles.buttonDisabled]}
+          onPress={() => actions.recordHit(2)}
+          disabled={gameState.gameStatus !== 'playing'}
+        >
+          <Text style={styles.buttonText}>P2 Hit</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.button, gameState.gameStatus === 'round_over' ? styles.buttonActive : styles.buttonDisabled]}
+          onPress={actions.startNewRound}
+          disabled={gameState.gameStatus !== 'round_over'}
+        >
+          <Text style={styles.buttonText}>New Round</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={[styles.button, styles.buttonSecondary]}
+          onPress={actions.resetGameSession}
+        >
+          <Text style={styles.buttonText}>Reset Session</Text>
         </TouchableOpacity>
       </View>
       
@@ -178,6 +219,21 @@ const styles = StyleSheet.create({
     color: '#00FFFF',
     fontFamily: 'monospace',
     textAlign: 'center',
+    marginBottom: 5,
+  },
+  roundText: {
+    fontSize: 14,
+    color: '#FFFF00',
+    fontFamily: 'monospace',
+    textAlign: 'center',
+    marginBottom: 5,
+  },
+  roundWinnerText: {
+    fontSize: 16,
+    color: '#00FF00',
+    fontFamily: 'monospace',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
   controlsContainer: {
     flexDirection: 'row',

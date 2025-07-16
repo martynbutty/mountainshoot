@@ -32,6 +32,10 @@ export interface GameState {
     };
     turnNumber: number;
   };
+  roundWinner?: 1 | 2 | null;
+  roundEndTime?: number | null;
+  isRoundActive?: boolean;
+  gameWinner?: 1 | 2 | null;
 }
 
 export interface GameConfig {
@@ -51,4 +55,7 @@ export type GameAction =
   | { type: 'END_TURN' }
   | { type: 'PLAYER_AIMED' }
   | { type: 'PLAYER_FIRED' }
-  | { type: 'RESET_TURN' };
+  | { type: 'RESET_TURN' }
+  | { type: 'RECORD_HIT'; playerId: 1 | 2 }
+  | { type: 'END_ROUND'; winnerId: 1 | 2 }
+  | { type: 'RESET_GAME_SESSION' };

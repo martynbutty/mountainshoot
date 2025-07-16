@@ -36,6 +36,10 @@ const createInitialGameState = (): GameState => ({
     },
     turnNumber: 1,
   },
+  roundWinner: null,
+  roundEndTime: null,
+  isRoundActive: false,
+  gameWinner: null,
 });
 
 // Game state reducer
@@ -175,10 +179,84 @@ const gameStateReducer = (state: GameState, action: GameAction): GameState => {
           },
           turnNumber: 1,
         },
+        roundWinner: null,
+        roundEndTime: null,
+        isRoundActive: true,
       };
 
     case 'RESET_GAME':
       return createInitialGameState();
+
+    case 'RECORD_HIT':
+      const hitPlayerId = action.playerId;
+      const roundWinner = hitPlayerId === 1 ? 2 : 1;
+      
+      return {
+        ...state,
+        gameStatus: 'round_over',
+        roundWinner,
+        roundEndTime: Date.now(),
+        isRoundActive: false,
+        sessionScores: {
+          ...state.sessionScores,
+          [`player${roundWinner}Wins` as keyof typeof state.sessionScores]: 
+            state.sessionScores[`player${roundWinner}Wins` as keyof typeof state.sessionScores] + 1,
+        },
+        turnState: {
+          ...state.turnState,
+          turnStartTime: null,
+        },
+      };
+
+    case 'END_ROUND':
+      return {
+        ...state,
+        gameStatus: 'round_over',
+        roundWinner: action.winnerId,
+        roundEndTime: Date.now(),
+        isRoundActive: false,
+        turnState: {
+          ...state.turnState,
+          turnStartTime: null,
+        },
+      };
+
+    case 'RESET_GAME_SESSION':
+      return {
+        ...state,
+        gameStatus: 'waiting',
+        roundNumber: 1,
+        currentPlayer: 1,
+        players: {
+          player1: {
+            ...state.players.player1,
+            health: 100,
+            score: 0,
+          },
+          player2: {
+            ...state.players.player2,
+            health: 100,
+            score: 0,
+          },
+        },
+        sessionScores: {
+          player1Wins: 0,
+          player2Wins: 0,
+        },
+        turnState: {
+          turnStartTime: null,
+          turnTimeLimit: null,
+          playerActions: {
+            hasFired: false,
+            hasAimed: false,
+          },
+          turnNumber: 1,
+        },
+        roundWinner: null,
+        roundEndTime: null,
+        isRoundActive: false,
+        gameWinner: null,
+      };
 
     default:
       return state;
@@ -250,6 +328,11 @@ export const useGameActions = () => {
     // Player action tracking
     playerAimed: () => dispatch({ type: 'PLAYER_AIMED' }),
     playerFired: () => dispatch({ type: 'PLAYER_FIRED' }),
+
+    // Win condition actions
+    recordHit: (playerId: 1 | 2) => dispatch({ type: 'RECORD_HIT', playerId }),
+    endRound: (winnerId: 1 | 2) => dispatch({ type: 'END_ROUND', winnerId }),
+    resetGameSession: () => dispatch({ type: 'RESET_GAME_SESSION' }),
 
     // Turn validation functions
     canPlayerAct,
