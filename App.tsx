@@ -5,11 +5,15 @@ import React from 'react';
 import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import { GameStateProvider, useGameState } from './src/game/GameStateContext';
 
 // Lock screen orientation to landscape on app start
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
 
-export default function App(): JSX.Element {
+// Game content component that uses game state
+const GameContent: React.FC = () => {
+  const { gameState } = useGameState();
+
   return (
     <View style={styles.container}>
       <ExpoStatusBar style="light" hidden={true} />
@@ -25,10 +29,34 @@ export default function App(): JSX.Element {
         </Text>
       </View>
       
+      <View style={styles.gameInfo}>
+        <Text style={styles.gameInfoText}>
+          Current Player: {gameState.currentPlayer} | 
+          Status: {gameState.gameStatus} | 
+          Round: {gameState.roundNumber}
+        </Text>
+        <Text style={styles.scoreText}>
+          Player 1: {gameState.sessionScores.player1Wins} wins | 
+          Player 2: {gameState.sessionScores.player2Wins} wins
+        </Text>
+      </View>
+      
       <View style={styles.gameArea}>
         <Text style={styles.placeholder}>Game Area - Coming Soon</Text>
+        <Text style={styles.playerPositions}>
+          Player 1 at ({gameState.players.player1.position.x}, {gameState.players.player1.position.y}){'\n'}
+          Player 2 at ({gameState.players.player2.position.x}, {gameState.players.player2.position.y})
+        </Text>
       </View>
     </View>
+  );
+};
+
+export default function App(): JSX.Element {
+  return (
+    <GameStateProvider>
+      <GameContent />
+    </GameStateProvider>
   );
 }
 
@@ -42,7 +70,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 20,
   },
   title: {
     fontSize: 48,
@@ -66,6 +94,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 24,
   },
+  gameInfo: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  gameInfoText: {
+    fontSize: 14,
+    color: '#FFFF00',
+    fontFamily: 'monospace',
+    textAlign: 'center',
+    marginBottom: 5,
+  },
+  scoreText: {
+    fontSize: 14,
+    color: '#00FFFF',
+    fontFamily: 'monospace',
+    textAlign: 'center',
+  },
   gameArea: {
     flex: 1,
     width: '100%',
@@ -80,5 +125,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#666666',
     fontFamily: 'monospace',
+    marginBottom: 10,
+  },
+  playerPositions: {
+    fontSize: 12,
+    color: '#888888',
+    fontFamily: 'monospace',
+    textAlign: 'center',
   },
 });
