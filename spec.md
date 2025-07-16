@@ -123,6 +123,7 @@ A mobile recreation of the classic Atari computer game "Mountain Shoot" - a 2-pl
 ## Reference Material
 - Original game screenshots: https://www.mobygames.com/game/149402/mountain-shoot/screenshots/
 - Maintain authentic feel while optimizing for mobile touch interface
+- screenshots available in ./examples/
 
 ## Success Criteria
 - Faithful recreation of original Mountain Shoot gameplay
