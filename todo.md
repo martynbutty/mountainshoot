@@ -4,13 +4,14 @@
 - [x] Project setup complete
 - [x] Planning phase complete
 - [x] Step 2: Basic Game State complete
+- [x] Step 3: Player Turn Logic complete
 
 ## Implementation Steps
 
 ### Foundation Phase
 - [x] Step 1: Project Setup
 - [x] Step 2: Basic Game State
-- [ ] Step 3: Player Turn Logic
+- [x] Step 3: Player Turn Logic
 - [ ] Step 4: Win Condition Detection
 
 ### Physics Phase
@@ -63,4 +64,4 @@
 - None currently identified
 
 ## Next Action
-- Begin Step 3: Player Turn Logic
+- Begin Step 4: Win Condition Detection
