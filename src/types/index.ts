@@ -23,6 +23,15 @@ export interface GameState {
     player1Wins: number;
     player2Wins: number;
   };
+  turnState: {
+    turnStartTime: number | null;
+    turnTimeLimit: number | null;
+    playerActions: {
+      hasFired: boolean;
+      hasAimed: boolean;
+    };
+    turnNumber: number;
+  };
 }
 
 export interface GameConfig {
@@ -37,4 +46,9 @@ export type GameAction =
   | { type: 'SWITCH_TURN' }
   | { type: 'PLAYER_HIT'; playerId: 1 | 2 }
   | { type: 'START_NEW_ROUND' }
-  | { type: 'RESET_GAME' };
+  | { type: 'RESET_GAME' }
+  | { type: 'START_TURN' }
+  | { type: 'END_TURN' }
+  | { type: 'PLAYER_AIMED' }
+  | { type: 'PLAYER_FIRED' }
+  | { type: 'RESET_TURN' };

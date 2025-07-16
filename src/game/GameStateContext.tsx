@@ -27,6 +27,15 @@ const createInitialGameState = (): GameState => ({
     player1Wins: 0,
     player2Wins: 0,
   },
+  turnState: {
+    turnStartTime: null,
+    turnTimeLimit: null,
+    playerActions: {
+      hasFired: false,
+      hasAimed: false,
+    },
+    turnNumber: 1,
+  },
 });
 
 // Game state reducer
@@ -36,6 +45,10 @@ const gameStateReducer = (state: GameState, action: GameAction): GameState => {
       return {
         ...state,
         gameStatus: 'playing',
+        turnState: {
+          ...state.turnState,
+          turnStartTime: Date.now(),
+        },
       };
 
     case 'END_GAME':
@@ -44,10 +57,79 @@ const gameStateReducer = (state: GameState, action: GameAction): GameState => {
         gameStatus: 'game_over',
       };
 
-    case 'SWITCH_TURN':
+    case 'START_TURN':
       return {
         ...state,
-        currentPlayer: state.currentPlayer === 1 ? 2 : 1,
+        turnState: {
+          ...state.turnState,
+          turnStartTime: Date.now(),
+          playerActions: {
+            hasFired: false,
+            hasAimed: false,
+          },
+        },
+      };
+
+    case 'END_TURN':
+      return {
+        ...state,
+        turnState: {
+          ...state.turnState,
+          turnStartTime: null,
+        },
+      };
+
+    case 'SWITCH_TURN':
+      const nextPlayer = state.currentPlayer === 1 ? 2 : 1;
+      return {
+        ...state,
+        currentPlayer: nextPlayer,
+        turnState: {
+          ...state.turnState,
+          turnStartTime: Date.now(),
+          turnNumber: state.turnState.turnNumber + 1,
+          playerActions: {
+            hasFired: false,
+            hasAimed: false,
+          },
+        },
+      };
+
+    case 'PLAYER_AIMED':
+      return {
+        ...state,
+        turnState: {
+          ...state.turnState,
+          playerActions: {
+            ...state.turnState.playerActions,
+            hasAimed: true,
+          },
+        },
+      };
+
+    case 'PLAYER_FIRED':
+      return {
+        ...state,
+        turnState: {
+          ...state.turnState,
+          playerActions: {
+            ...state.turnState.playerActions,
+            hasFired: true,
+          },
+        },
+      };
+
+    case 'RESET_TURN':
+      return {
+        ...state,
+        turnState: {
+          ...state.turnState,
+          playerActions: {
+            hasFired: false,
+            hasAimed: false,
+          },
+          turnStartTime: Date.now(),
+        },
       };
 
     case 'PLAYER_HIT':
@@ -61,6 +143,10 @@ const gameStateReducer = (state: GameState, action: GameAction): GameState => {
           ...state.sessionScores,
           [`player${winner}Wins` as keyof typeof state.sessionScores]: 
             state.sessionScores[`player${winner}Wins` as keyof typeof state.sessionScores] + 1,
+        },
+        turnState: {
+          ...state.turnState,
+          turnStartTime: null,
         },
       };
 
@@ -79,6 +165,15 @@ const gameStateReducer = (state: GameState, action: GameAction): GameState => {
             ...state.players.player2,
             health: 100, // Reset health for new round
           },
+        },
+        turnState: {
+          turnStartTime: Date.now(),
+          turnTimeLimit: null,
+          playerActions: {
+            hasFired: false,
+            hasAimed: false,
+          },
+          turnNumber: 1,
         },
       };
 
@@ -125,14 +220,42 @@ export const useGameState = (): GameStateContextType => {
 
 // Hook for game actions
 export const useGameActions = () => {
-  const { dispatch } = useGameState();
+  const { dispatch, gameState } = useGameState();
+
+  // Turn validation functions
+  const canPlayerAct = (): boolean => {
+    return gameState.gameStatus === 'playing' && 
+           gameState.turnState.turnStartTime !== null &&
+           !gameState.turnState.playerActions.hasFired;
+  };
+
+  const isCurrentPlayerTurn = (playerId: 1 | 2): boolean => {
+    return gameState.currentPlayer === playerId && canPlayerAct();
+  };
 
   return {
+    // Basic game actions
     startGame: () => dispatch({ type: 'START_GAME' }),
     endGame: () => dispatch({ type: 'END_GAME' }),
-    switchTurn: () => dispatch({ type: 'SWITCH_TURN' }),
     playerHit: (playerId: 1 | 2) => dispatch({ type: 'PLAYER_HIT', playerId }),
     startNewRound: () => dispatch({ type: 'START_NEW_ROUND' }),
     resetGame: () => dispatch({ type: 'RESET_GAME' }),
+
+    // Turn management actions
+    startTurn: () => dispatch({ type: 'START_TURN' }),
+    endTurn: () => dispatch({ type: 'END_TURN' }),
+    switchToNextPlayer: () => dispatch({ type: 'SWITCH_TURN' }),
+    resetTurn: () => dispatch({ type: 'RESET_TURN' }),
+
+    // Player action tracking
+    playerAimed: () => dispatch({ type: 'PLAYER_AIMED' }),
+    playerFired: () => dispatch({ type: 'PLAYER_FIRED' }),
+
+    // Turn validation functions
+    canPlayerAct,
+    isCurrentPlayerTurn,
+
+    // Legacy action for backward compatibility
+    switchTurn: () => dispatch({ type: 'SWITCH_TURN' }),
   };
 };

@@ -80,18 +80,13 @@ exports[`App renders without crashing 1`] = `
         {
           "color": "#FFFF00",
           "fontFamily": "monospace",
-          "fontSize": 14,
+          "fontSize": 16,
           "marginBottom": 5,
           "textAlign": "center",
         }
       }
     >
-      Current Player: 
-      1
-       | Status: 
-      waiting
-       | Round: 
-      1
+      Game waiting
     </Text>
     <Text
       style={
@@ -109,6 +104,229 @@ exports[`App renders without crashing 1`] = `
       0
        wins
     </Text>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "marginBottom": 20,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#003300",
+          "borderColor": "#00FF00",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 10,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#FFFFFF",
+            "fontFamily": "monospace",
+            "fontSize": 14,
+            "textAlign": "center",
+          }
+        }
+      >
+        Start Game
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#333333",
+          "borderColor": "#666666",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 10,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#FFFFFF",
+            "fontFamily": "monospace",
+            "fontSize": 14,
+            "textAlign": "center",
+          }
+        }
+      >
+        Aim
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": true,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#333333",
+          "borderColor": "#666666",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 10,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#FFFFFF",
+            "fontFamily": "monospace",
+            "fontSize": 14,
+            "textAlign": "center",
+          }
+        }
+      >
+        Fire
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#330000",
+          "borderColor": "#FF0000",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 10,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#FFFFFF",
+            "fontFamily": "monospace",
+            "fontSize": 14,
+            "textAlign": "center",
+          }
+        }
+      >
+        Reset
+      </Text>
+    </View>
   </View>
   <View
     style={
@@ -142,6 +360,7 @@ exports[`App renders without crashing 1`] = `
           "color": "#888888",
           "fontFamily": "monospace",
           "fontSize": 12,
+          "marginBottom": 10,
           "textAlign": "center",
         }
       }
@@ -158,6 +377,21 @@ exports[`App renders without crashing 1`] = `
       , 
       300
       )
+    </Text>
+    <Text
+      style={
+        {
+          "color": "#666666",
+          "fontFamily": "monospace",
+          "fontSize": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      Turn Actions: Aimed=
+      No
+      , Fired=
+      No
     </Text>
   </View>
 </View>
