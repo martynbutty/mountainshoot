@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Mountain Shoot",
+    "slug": "mountain-shoot",
+    "version": "1.0.0",
+    "orientation": "landscape",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": true,
+      "supportedInterfaceOrientations": ["landscapeLeft", "landscapeRight"]
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000000"
+      },
+      "screenOrientation": "landscape"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
